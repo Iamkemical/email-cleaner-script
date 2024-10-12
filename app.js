@@ -94,7 +94,7 @@ function openInbox(cb) {
 
 // Schedule the script to run every 15 minutes
 
-schedule.scheduleJob("* * * * *", async function () {
+schedule.scheduleJob("*/5 * * * *", async function () {
   console.log("Running script...");
   await run();
   console.log("Script finished running...");
