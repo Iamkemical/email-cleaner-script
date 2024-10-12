@@ -3,6 +3,7 @@ require("dotenv").config({ path: `${process.cwd()}/.env` });
 const Imap = require("node-imap");
 const inspect = require("util").inspect;
 const schedule = require("node-schedule");
+const express = require("express");
 
 const userEmail = process.env.USER_EMAIL;
 const userPassword = process.env.USER_PASSWORD;
@@ -10,6 +11,8 @@ const emailHost = process.env.EMAIL_HOST;
 const emailPort = parseInt(process.env.EMAIL_PORT);
 
 let emails = process.env.BLACKLISTED_EMAILS;
+
+const app = express();
 
 let searchCriteriaArray = [];
 let blackListedEmailCollection = emails.split(",");
@@ -98,4 +101,9 @@ schedule.scheduleJob("*/5 * * * *", async function () {
   console.log("Running script...");
   await run();
   console.log("Script finished running...");
+});
+
+const PORT = process.env.APP_PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}!`);
 });
