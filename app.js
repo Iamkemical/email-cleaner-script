@@ -9,6 +9,8 @@ const userEmail = process.env.USER_EMAIL;
 const userPassword = process.env.USER_PASSWORD;
 const emailHost = process.env.EMAIL_HOST;
 const emailPort = parseInt(process.env.EMAIL_PORT);
+const cronSchedule = process.env.CRON_SCHEDULE;
+cess.env.CRON_EXPRESSION;
 
 let emails = process.env.BLACKLISTED_EMAILS;
 
@@ -97,7 +99,7 @@ function openInbox(cb) {
 
 // Schedule the script to run every 15 minutes
 
-schedule.scheduleJob("*/5 * * * *", async function () {
+schedule.scheduleJob(cronSchedule, async function () {
   console.log("Running script...");
   await run();
   console.log("Script finished running...");
