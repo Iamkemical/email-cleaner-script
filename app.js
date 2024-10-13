@@ -3,17 +3,15 @@ require("dotenv").config({ path: `${process.cwd()}/.env` });
 const Imap = require("node-imap");
 const inspect = require("util").inspect;
 const schedule = require("node-schedule");
-const express = require("express");
+const http = require("http");
 
 const userEmail = process.env.USER_EMAIL;
 const userPassword = process.env.USER_PASSWORD;
 const emailHost = process.env.EMAIL_HOST;
 const emailPort = parseInt(process.env.EMAIL_PORT);
-const cronSchedule = process.env.CRON_SCHEDULE;
+const cronSchedule = process.env.CRON_EXPRESSION;
 
 let emails = process.env.BLACKLISTED_EMAILS;
-
-const app = express();
 
 let searchCriteriaArray = [];
 let blackListedEmailCollection = emails.split(",");
@@ -101,15 +99,17 @@ function openInbox(cb) {
 schedule.scheduleJob(cronSchedule, async function () {
   console.log("Running script...");
   await run();
-  console.log("Script finished running...");
 });
 
 const PORT = process.env.APP_PORT || 4000;
+const HOSTNAME = process.env.APP_HOSTNAME;
 
-app.get("/", (req, res) => {
-  res.send("Email Script is running now... 🚀🚀🚀");
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "text/plain; charset=UTF-8");
+  res.end("Email Script is running now... 🚀🚀🚀\n");
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, HOSTNAME, () => {
   console.log(`Server listening on port ${PORT}!`);
 });
