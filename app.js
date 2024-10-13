@@ -107,7 +107,7 @@ const HOSTNAME = process.env.APP_HOSTNAME;
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader("Content-Type", "text/plain; charset=UTF-8");
-  res.end("Email Script is running now... 🚀🚀🚀\n");
+  res.end("Email cleaner script is running now... 🚀🚀🚀\n");
 });
 
 server.listen(PORT, HOSTNAME, () => {
