@@ -10,7 +10,6 @@ const userPassword = process.env.USER_PASSWORD;
 const emailHost = process.env.EMAIL_HOST;
 const emailPort = parseInt(process.env.EMAIL_PORT);
 const cronSchedule = process.env.CRON_SCHEDULE;
-cess.env.CRON_EXPRESSION;
 
 let emails = process.env.BLACKLISTED_EMAILS;
 
@@ -106,6 +105,11 @@ schedule.scheduleJob(cronSchedule, async function () {
 });
 
 const PORT = process.env.APP_PORT || 4000;
+
+app.get("/", (req, res) => {
+  res.send("Email Script is running now... 🚀🚀🚀");
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}!`);
 });
