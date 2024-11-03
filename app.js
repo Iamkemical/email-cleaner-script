@@ -1,7 +1,7 @@
 require("dotenv").config({ path: `${process.cwd()}/.env` });
 
-const Imap = require("node-imap");
-const inspect = require("util").inspect;
+const Imap = require("node-imap"),
+  inspect = require("util").inspect;
 const schedule = require("node-schedule");
 const http = require("http");
 
